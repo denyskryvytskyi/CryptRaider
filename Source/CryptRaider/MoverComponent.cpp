@@ -41,3 +41,8 @@ void UMoverComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActor
 		Owner->SetActorLocation(NewLocation);
 	}
 }
+
+void UMoverComponent::EnableMoving(bool enabled)
+{
+	MovingEnabled = enabled;
+}
