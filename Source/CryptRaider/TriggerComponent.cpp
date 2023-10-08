@@ -11,20 +11,26 @@ UTriggerComponent::UTriggerComponent()
 void UTriggerComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
     Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
+    
+    const bool Enabled = !IsTriggerableOnlyOnce || (IsTriggerableOnlyOnce && !IsAlreadyTriggered);
 
-    if (Mover)
+    if (Enabled && Mover)
     {
         const auto UnlockActor = GetUnlockActor();
         if (UnlockActor)
         {
-            if (auto UnlockActorRootComponent = Cast<UPrimitiveComponent>(UnlockActor->GetRootComponent()))
+            if (IsUnlockObjectAttachable)
             {
-                UnlockActorRootComponent->SetSimulatePhysics(false);
+                if (auto UnlockActorRootComponent = Cast<UPrimitiveComponent>(UnlockActor->GetRootComponent()))
+                {
+                    UnlockActorRootComponent->SetSimulatePhysics(false);
+                }
+                UnlockActor->AttachToComponent(this, FAttachmentTransformRules::KeepWorldTransform);
             }
-            UnlockActor->AttachToComponent(this, FAttachmentTransformRules::KeepWorldTransform);
 
 
             Mover->EnableMoving(true);
+            IsAlreadyTriggered = true;
         }
         else {
             Mover->EnableMoving(false);
@@ -43,8 +49,12 @@ AActor* UTriggerComponent::GetUnlockActor() const
     GetOverlappingActors(Actors);
 
     for (const auto Actor : Actors) {
+        for (const auto tag : Actor->Tags) {
+            UE_LOG(LogTemp, Display, TEXT("Overlaping with tag: %s"), *tag.ToString());
+        }
+        
         const bool IsGrabbed = Actor->ActorHasTag("Grabbed");
-        if (Actor->ActorHasTag(UnlockActorTag) && !IsGrabbed) {
+        if (Actor->ActorHasTag(UnlockActorTag) && (IsGrabbedCanUnlock || !IsGrabbed)) {
 
             UE_LOG(LogTemp, Display, TEXT("====== Wall unlocked ======="));
             return Actor;

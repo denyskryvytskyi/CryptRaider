@@ -79,10 +79,14 @@ void UGrabberComponent::Grab()
 
     FHitResult HitResult;
     if (TryHit(HitResult)) {
-        auto GrabbedActor =HitResult.GetActor();
-        GrabbedActor->Tags.Add("Grabbed");
+        auto* GrabbedComponent = HitResult.GetComponent();
+        GrabbedComponent->SetSimulatePhysics(true);
 
-        PhysicsHandle->GrabComponentAtLocationWithRotation(HitResult.GetComponent(), NAME_None, HitResult.ImpactPoint, GetComponentRotation());
+        auto* GrabbedActor = HitResult.GetActor();
+        GrabbedActor->Tags.Add("Grabbed");
+        GrabbedActor->DetachFromActor(FDetachmentTransformRules::KeepWorldTransform);
+
+        PhysicsHandle->GrabComponentAtLocationWithRotation(GrabbedComponent, NAME_None, HitResult.ImpactPoint, GetComponentRotation());
     }
 }
 

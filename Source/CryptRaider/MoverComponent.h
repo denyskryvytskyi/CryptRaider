@@ -35,7 +35,11 @@ private:
 
     UPROPERTY(EditAnywhere)
     bool MovingEnabled { false };
+	
+	UPROPERTY(EditAnywhere)
+    bool ResetToOriginEnabled { false };
+
 
 private:
-    FVector TargetLocation;
+    FVector OriginLocation;
 };

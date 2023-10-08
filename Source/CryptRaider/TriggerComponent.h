@@ -34,5 +34,16 @@ private:
     UPROPERTY(EditAnywhere)
     FName UnlockActorTag;
 
+    UPROPERTY(EditAnywhere)
+    bool IsUnlockObjectAttachable { false };
+
+    UPROPERTY(EditAnywhere)
+    bool IsGrabbedCanUnlock { false };
+
+    UPROPERTY(EditAnywhere)
+    bool IsTriggerableOnlyOnce { false };
+
+private:
     UMoverComponent* Mover { nullptr };
+    bool IsAlreadyTriggered { false };
 };
