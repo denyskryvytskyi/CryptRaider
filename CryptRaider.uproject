@@ -29,5 +29,8 @@
 				"Win64"
 			]
 		}
+	],
+	"TargetPlatforms": [
+		"Windows"
 	]
 }

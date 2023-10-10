@@ -14,7 +14,7 @@ void UTriggerComponent::TickComponent(float DeltaTime, ELevelTick TickType, FAct
     
     const bool Enabled = !IsTriggerableOnlyOnce || (IsTriggerableOnlyOnce && !IsAlreadyTriggered);
 
-    if (Enabled && Mover)
+    if (Enabled)
     {
         const auto UnlockActor = GetUnlockActor();
         if (UnlockActor)
@@ -29,11 +29,17 @@ void UTriggerComponent::TickComponent(float DeltaTime, ELevelTick TickType, FAct
             }
 
 
-            Mover->EnableMoving(true);
             IsAlreadyTriggered = true;
+            if (Mover)
+            {
+                Mover->EnableMoving(true);
+            }
         }
         else {
-            Mover->EnableMoving(false);
+            if (Mover)
+            {
+                Mover->EnableMoving(false);
+            }
         }
     }
 }
@@ -55,7 +61,6 @@ AActor* UTriggerComponent::GetUnlockActor() const
         
         const bool IsGrabbed = Actor->ActorHasTag("Grabbed");
         if (Actor->ActorHasTag(UnlockActorTag) && (IsGrabbedCanUnlock || !IsGrabbed)) {
-
             UE_LOG(LogTemp, Display, TEXT("====== Wall unlocked ======="));
             return Actor;
         }
