@@ -9,5 +9,10 @@ Here are some specific things I learned while making this game:
 - Line Tracing and collisions.
 - Calling C++ from Blueprints.
 
+# Demo
 https://github.com/denyskryvytskyi/CryptRaider/assets/25298585/4a70f703-3f08-4a92-b4e1-b1307c17dfe3
 
+# Getting started
+*Updated to the Unreal Engine 5.4.1.*
+1. `git clone https://github.com/denyskryvytskyi/CryptRaider`
+2. Run `CryptRaider.uproject`
