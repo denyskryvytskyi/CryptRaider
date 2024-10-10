@@ -10,7 +10,8 @@ Here are some specific things I learned while making this game:
 - Calling C++ from Blueprints.
 
 # Demo
-https://github.com/denyskryvytskyi/CryptRaider/assets/25298585/4a70f703-3f08-4a92-b4e1-b1307c17dfe3
+![2](https://github.com/user-attachments/assets/6a092d35-e98c-468d-96bd-ffb46216bd7b)
+![3](https://github.com/user-attachments/assets/846ff87c-4cce-4d76-81cb-e6a56fdb6ce0)
 
 # Getting started
 *Updated to the Unreal Engine 5.4.1.*
