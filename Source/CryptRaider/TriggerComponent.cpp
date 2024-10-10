@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+// Copyright Denys Kryvytskyi. All Rights Reserved.
 
 #include "TriggerComponent.h"
 #include "MoverComponent.h"
@@ -12,14 +12,14 @@ void UTriggerComponent::TickComponent(float DeltaTime, ELevelTick TickType, FAct
 {
     Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
     
-    const bool Enabled = !IsTriggerableOnlyOnce || (IsTriggerableOnlyOnce && !IsAlreadyTriggered);
+    const bool Enabled = !bTriggerableOnlyOnce || (bTriggerableOnlyOnce && !bAlreadyTriggered);
 
     if (Enabled)
     {
         const auto UnlockActor = GetUnlockActor();
         if (UnlockActor)
         {
-            if (IsUnlockObjectAttachable)
+            if (bUnlockObjectAttachable)
             {
                 if (auto UnlockActorRootComponent = Cast<UPrimitiveComponent>(UnlockActor->GetRootComponent()))
                 {
@@ -29,7 +29,7 @@ void UTriggerComponent::TickComponent(float DeltaTime, ELevelTick TickType, FAct
             }
 
 
-            IsAlreadyTriggered = true;
+            bAlreadyTriggered = true;
             if (Mover)
             {
                 Mover->EnableMoving(true);
@@ -55,13 +55,8 @@ AActor* UTriggerComponent::GetUnlockActor() const
     GetOverlappingActors(Actors);
 
     for (const auto Actor : Actors) {
-        for (const auto tag : Actor->Tags) {
-            UE_LOG(LogTemp, Display, TEXT("Overlaping with tag: %s"), *tag.ToString());
-        }
-        
         const bool IsGrabbed = Actor->ActorHasTag("Grabbed");
-        if (Actor->ActorHasTag(UnlockActorTag) && (IsGrabbedCanUnlock || !IsGrabbed)) {
-            UE_LOG(LogTemp, Display, TEXT("====== Wall unlocked ======="));
+        if (Actor->ActorHasTag(UnlockActorTag) && (bGrabbedCanUnlock || !IsGrabbed)) {
             return Actor;
         }
     }

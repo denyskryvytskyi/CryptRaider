@@ -1,44 +1,41 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+// Copyright Denys Kryvytskyi. All Rights Reserved.
 
 #pragma once
 
-#include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
+#include "CoreMinimal.h"
+
 #include "MoverComponent.generated.h"
 
+UCLASS(ClassGroup = (Custom), meta = (BlueprintSpawnableComponent))
+class CRYPTRAIDER_API UMoverComponent : public UActorComponent {
+    GENERATED_BODY()
 
-UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
-class CRYPTRAIDER_API UMoverComponent : public UActorComponent
-{
-	GENERATED_BODY()
-
-public:	
-	// Sets default values for this component's properties
-	UMoverComponent();
+public:
+    UMoverComponent();
 
 protected:
-	// Called when the game starts
-	virtual void BeginPlay() override;
+    virtual void BeginPlay() override;
 
-public:	
-	// Called every frame
-	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
+public:
+    virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
-	void EnableMoving(bool enabled);
+    void EnableMoving(bool enabled);
 
 private:
     UPROPERTY(EditAnywhere)
     FVector MoveOffset;
 
-	UPROPERTY(EditAnywhere)
+    UPROPERTY(EditAnywhere)
+    USoundBase* MoveSound { nullptr };
+
+    UPROPERTY(EditAnywhere)
     float MoveTime { 3.0f };
 
     UPROPERTY(EditAnywhere)
-    bool MovingEnabled { false };
-	
-	UPROPERTY(EditAnywhere)
-    bool ResetToOriginEnabled { false };
+    bool bMovingEnabled { false };
 
+    bool bSoundSpawned { false };
 
 private:
     FVector OriginLocation;

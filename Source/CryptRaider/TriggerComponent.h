@@ -1,30 +1,27 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+// Copyright Denys Kryvytskyi. All Rights Reserved.
 
 #pragma once
 
-#include "CoreMinimal.h"
 #include "Components/BoxComponent.h"
+#include "CoreMinimal.h"
 
 #include "TriggerComponent.generated.h"
 
 class UMoverComponent;
 
 UCLASS(ClassGroup = (Custom), meta = (BlueprintSpawnableComponent))
-class CRYPTRAIDER_API UTriggerComponent : public UBoxComponent
-{
-	GENERATED_BODY()
+class CRYPTRAIDER_API UTriggerComponent : public UBoxComponent {
+    GENERATED_BODY()
 
 public:
     UTriggerComponent();
 
-    // Called every frame
     virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
     UFUNCTION(BlueprintCallable)
     void SetMover(UMoverComponent* NewMover);
 
 protected:
-    // Called when the game starts
     virtual void BeginPlay() override;
 
 private:
@@ -35,15 +32,15 @@ private:
     FName UnlockActorTag;
 
     UPROPERTY(EditAnywhere)
-    bool IsUnlockObjectAttachable { false };
+    bool bUnlockObjectAttachable { false }; // should the unlock object be attached to the unlocked object
 
     UPROPERTY(EditAnywhere)
-    bool IsGrabbedCanUnlock { false };
+    bool bGrabbedCanUnlock { false };   // can be unlocked with grabbed object (like holding a key for a door)
 
     UPROPERTY(EditAnywhere)
-    bool IsTriggerableOnlyOnce { false };
+    bool bTriggerableOnlyOnce { false };    // can be used once
 
 private:
     UMoverComponent* Mover { nullptr };
-    bool IsAlreadyTriggered { false };
+    bool bAlreadyTriggered { false };
 };

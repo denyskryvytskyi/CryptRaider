@@ -1,23 +1,22 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+// Copyright Denys Kryvytskyi. All Rights Reserved.
 
 #pragma once
 
 #include "CoreMinimal.h"
+
 #include "Components/SceneComponent.h"
+
 #include "GrabberComponent.generated.h"
 
 class UPhysicsHandleComponent;
 
-UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
-class CRYPTRAIDER_API UGrabberComponent : public USceneComponent
-{
-	GENERATED_BODY()
+UCLASS(ClassGroup = (Custom), meta = (BlueprintSpawnableComponent))
+class CRYPTRAIDER_API UGrabberComponent : public USceneComponent {
+    GENERATED_BODY()
 
-public:	
-	// Sets default values for this component's properties
-	UGrabberComponent();
+public:
+    UGrabberComponent();
 
-	// Called every frame
     virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
     UFUNCTION(BlueprintCallable)
@@ -27,8 +26,7 @@ public:
     void Release();
 
 protected:
-	// Called when the game starts
-	virtual void BeginPlay() override;
+    virtual void BeginPlay() override;
 
 private:
     bool TryHit(FHitResult& hitResult);
@@ -36,12 +34,18 @@ private:
 private:
     UPROPERTY(EditAnywhere)
     float MaxGrabDistance { 400.0f };
-	
-	UPROPERTY(EditAnywhere)
+
+    UPROPERTY(EditAnywhere)
     float GrabRadius { 100.0f };
 
-	UPROPERTY(EditAnywhere)
+    UPROPERTY(EditAnywhere)
     float HoldDistance { 100.0f };
+
+    UPROPERTY(EditAnywhere)
+    USoundBase* PickupSound { nullptr };
+
+    UPROPERTY(EditAnywhere)
+    USoundBase* DropSound { nullptr };
 
     UPhysicsHandleComponent* PhysicsHandle { nullptr };
 };
