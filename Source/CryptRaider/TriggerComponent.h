@@ -40,6 +40,9 @@ private:
     UPROPERTY(EditAnywhere)
     bool bTriggerableOnlyOnce { false };    // can be used once
 
+    UPROPERTY(EditAnywhere)
+    bool bQuestCompleteTrigger { false };
+
 private:
     UMoverComponent* Mover { nullptr };
     bool bAlreadyTriggered { false };

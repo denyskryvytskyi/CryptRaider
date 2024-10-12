@@ -1,17 +1,18 @@
 # CryptRaider
 
-This is a 3D game created in Unreal Engine 5 as part of the Unreal Engine 5 C++ Developer: Learn C++ & Make Video Games course. The game features a level with 3D puzzles where a player can grab objects and use them for the walls/doors unlocking to achieve a gold statue.
+This is a 3D game created in Unreal Engine 5 as part of the Unreal Engine 5 C++ Developer: Learn C++ & Make Video Games course. The game features a level with 3D puzzles where a player can grab objects and use them for the walls/doors unlocking to find a gold statue.
 
 Here are some specific things I learned while making this game:
-- Usage of Actor Component and Scene Components and making custom ones for game logic.
+- Implemented Actor/Scene components for gameplay logic like grabbing objects and triggering specific areas.
 - Lighting with Lumen technology.
 - Modular Level design.
 - Line Tracing and collisions.
 - Calling C++ from Blueprints.
+- Simple HUD with crosshair and "Quest Complete" message.
+- Background sound, footstep sound, and pick up/ drop object sounds.
 
 # Demo
-![2](https://github.com/user-attachments/assets/6a092d35-e98c-468d-96bd-ffb46216bd7b)
-![3](https://github.com/user-attachments/assets/846ff87c-4cce-4d76-81cb-e6a56fdb6ce0)
+[![Crypt Raider Thumbnail](Demo/CryptRaiderThumbnail.png)](https://www.youtube.com/watch?v=3m2cW0WxMSg)
 
 # Getting started
 *Updated to the Unreal Engine 5.4.1.*

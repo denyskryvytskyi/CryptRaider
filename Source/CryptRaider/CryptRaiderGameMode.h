@@ -14,5 +14,12 @@ class ACryptRaiderGameMode : public AGameModeBase {
 public:
     ACryptRaiderGameMode();
 
+    void ShowQuestCompleteWidget();
+
     void BeginPlay() override;
+
+
+private:
+    UPROPERTY(EditDefaultsOnly)
+    TSubclassOf<class UUserWidget> QuestCompleteWidgetClass;
 };

@@ -2,6 +2,8 @@
 
 #include "TriggerComponent.h"
 #include "MoverComponent.h"
+#include "CryptRaider/CryptRaiderGameMode.h"
+#include "Kismet/GameplayStatics.h"
 
 UTriggerComponent::UTriggerComponent()
 {
@@ -11,33 +13,32 @@ UTriggerComponent::UTriggerComponent()
 void UTriggerComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
     Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
-    
+
     const bool Enabled = !bTriggerableOnlyOnce || (bTriggerableOnlyOnce && !bAlreadyTriggered);
 
-    if (Enabled)
-    {
+    if (Enabled) {
         const auto UnlockActor = GetUnlockActor();
-        if (UnlockActor)
-        {
-            if (bUnlockObjectAttachable)
-            {
-                if (auto UnlockActorRootComponent = Cast<UPrimitiveComponent>(UnlockActor->GetRootComponent()))
-                {
+        if (UnlockActor) {
+            if (bUnlockObjectAttachable) {
+                if (auto UnlockActorRootComponent = Cast<UPrimitiveComponent>(UnlockActor->GetRootComponent())) {
                     UnlockActorRootComponent->SetSimulatePhysics(false);
                 }
-                UnlockActor->AttachToComponent(this, FAttachmentTransformRules::KeepWorldTransform);
+                UnlockActor->AttachToComponent(this, FAttachmentTransformRules::SnapToTargetNotIncludingScale);
             }
-
 
             bAlreadyTriggered = true;
-            if (Mover)
-            {
+
+            if (bQuestCompleteTrigger) {
+                if (ACryptRaiderGameMode* GameMode = Cast<ACryptRaiderGameMode>(UGameplayStatics::GetGameMode(GetWorld()))) {
+                    GameMode->ShowQuestCompleteWidget();
+                }
+            }
+
+            if (Mover) {
                 Mover->EnableMoving(true);
             }
-        }
-        else {
-            if (Mover)
-            {
+        } else {
+            if (Mover) {
                 Mover->EnableMoving(false);
             }
         }
