@@ -12,9 +12,11 @@ Here are some specific things I learned while making this game:
 - Background sound, footstep sound, and pick up/ drop object sounds.
 
 # Demo
-[![Crypt Raider Thumbnail](Demo/CryptRaiderThumbnail.png)](https://www.youtube.com/watch?v=3m2cW0WxMSg)
+[<img src="Demo/CryptRaiderThumbnail.png">](https://www.youtube.com/watch?v=3m2cW0WxMSg)
 
 # Getting started
-*Updated to the Unreal Engine 5.4.1.*
+*Updated to the Unreal Engine 5.4.3.*
 1. `git clone https://github.com/denyskryvytskyi/CryptRaider`
-2. Run `CryptRaider.uproject`
+2. Right-click the `CryptRaider.uproject` file and select `Generate Visual Studio project files`
+3. Build project in Visual Studio (`Development Editor` configuration to run in Editor)
+4. Run `CryptRaider.uproject`
